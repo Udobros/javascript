@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Simple Quiz App</title>
+</head>
+<body>
+  <script>
+    // ✅ Sample Question Set
+    const questionSet = [
+      {
+        prompt: "Which planet is known as the Red Planet?",
+        choices: ["Earth", "Mars", "Jupiter", "Venus"],
+        answer: 1
+      },
+      {
+        prompt: "What is 5 + 3?",
+        choices: ["5", "8", "15", "10"],
+        answer: 1
+      },
+      {
+        prompt: "Which language runs in a web browser?",
+        choices: ["Java", "C", "Python", "JavaScript"],
+        answer: 3
+      },
+       
+    {
+        prompt: "Nigeria is in what continent?",
+        choices: ["Europe", "Afric", "Asia", "Australia"],
+        answer: 0
+    },
+    {
+        prompt: "Which operator returns the remainder of division?",
+        choices: ["%", "/", "*", "-"],
+        answer: 0
+    },
+    {
+        prompt: "Which built-in function prints output to the console?",
+        choices: ["print()", "echo()", "console.log()", "log.print()"],
+        answer: 2
+    },
+    ];
+
+    function runQuiz() {
+      let score = 0;
+      let missed = [];
+
+      console.log(" Welcome to the Quiz! Answer by typing 1, 2, 3, or 4.");
+
+      for (let i = 0; i < questionSet.length; i++) {
+        const q = questionSet[i];
+
+        // Format the question and choices
+        let questionText = `Question ${i + 1}: ${q.prompt}\n`;
+        q.choices.forEach((choice, index) => {
+          questionText += `${index + 1}) ${choice}\n`;
+        });
+
+        let userAnswer = prompt(questionText);
+        let userIndex = parseInt(userAnswer) - 1;
+
+        if (userIndex === q.answer) {
+          alert(" Correct!");
+          score++;
+        } else {
+          console.log(` Incorrect! Correct answer: ${q.choices[q.answer]}`);
+          missed.push(q);
+        }
+      }
+
+      //  Summary
+      let summary = ` Quiz Summary:\nTotal Questions: ${questionSet.length}\nCorrect Answers: ${score}\nScore Percentage: ${((score / questionSet.length) * 100).toFixed(2)}%`;
+
+      if (missed.length > 0) {
+        summary += `\n\n You missed the following questions:\n`;
+        missed.forEach((q, idx) => {
+          summary += `${idx + 1}. ${q.prompt}\n   Correct answer: ${q.choices[q.answer]}\n`;
+        });
+      } else {
+        summary += `\n\n Perfect Score! Well done!`;
+      }
+
+      console.log(summary);
+    }
+
+    //  Replay Feature
+    while (true) {
+      runQuiz();
+      let replay = prompt("Do you want to play again? (yes/no)").toLowerCase();
+      if (replay !== "yes" && replay !== "y") {
+        console.log(" Thanks for your participation! Goodbye!");
+        break;
+      }
+    }
+  </script>
+</body>
+</html>
